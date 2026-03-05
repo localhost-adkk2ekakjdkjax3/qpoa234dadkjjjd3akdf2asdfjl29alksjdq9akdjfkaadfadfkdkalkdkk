@@ -59,27 +59,27 @@ export function agv(script) {
     const location = prompt("Location:");
     const errorInput = prompt("Error Message(s) (space-separated codes):");
 
-    // Define error codes inside the function
+    // Define error codes as STRINGS (important)
     const errorCodeMap = {
-        2368: "Rear Bumper",
-        2314: "Front Bumper",
-        2019: "Load Detect Fault",
-        2050: "Cart not in position to raise lift",
-        1: "Safety system modules not okay",
-        2: "Encoder crosscheck failure",
-        3: "Speed outside safety tolerance",
+        "2368": "Rear Bumper",
+        "2314": "Front Bumper",
+        "2019": "Load Detect Fault",
+        "2050": "Cart not in position to raise lift",
+        "1": "Safety system modules not okay",
+        "2": "Encoder crosscheck failure",
+        "3": "Speed outside safety tolerance"
     };
 
-    // Convert input into array (handles multiple spaces)
+    // Convert input safely
     const errorCodes = errorInput
-        ? errorInput.trim().split(/\s+/)
+        ? [...new Set(errorInput.trim().split(/\s+/))] // removes duplicates
         : [];
 
-    // Build formatted error message string
     const formattedErrors = errorCodes
         .map(code => {
-            const description = errorCodeMap[code] || "Unknown Error";
-            return `${code} - ${description}`;
+            const cleanCode = code.trim(); // extra safety
+            const description = errorCodeMap[cleanCode] || "Unknown Error";
+            return `${cleanCode} - ${description}`;
         })
         .join(" ||  ");
 
