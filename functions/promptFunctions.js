@@ -3,6 +3,7 @@ import allScripts from "./allScripts.js";
 
 let globalCodeCall = false;
 let globalCodeAnnoucement = "";
+let globalCodeClearBackup = "";
 
 export function extensionOnly(script) {
     const extension = prompt("Extension: ");
@@ -54,15 +55,42 @@ export function trashLinen(script) {
 }
 
 export function agv(script) {
-    const number = prompt("AGV Number: ");
-    const location = prompt("Location: ");
-    const errorMessage = prompt("Error Message(s): ");
+    const number = prompt("AGV Number:");
+    const location = prompt("Location:");
+    const errorInput = prompt("Error Message(s) (space-separated codes):");
+
+    // Define error codes inside the function
+    const errorCodeMap = {
+        2368: "Rear Bumper",
+        2314: "Front Bumper",
+        2450: "Left Safety Scanner",
+        2481: "Right Safety Scanner",
+        2601: "Emergency Stop Pressed",
+        2700: "Obstacle Detected",
+        2805: "Low Battery",
+        2902: "Drive Fault",
+        3001: "Communication Fault",
+        3104: "Load Detect Fault"
+    };
+
+    // Convert input into array (handles multiple spaces)
+    const errorCodes = errorInput
+        ? errorInput.trim().split(/\s+/)
+        : [];
+
+    // Build formatted error message string
+    const formattedErrors = errorCodes
+        .map(code => {
+            const description = errorCodeMap[code] || "Unknown Error";
+            return `${code} - ${description}`;
+        })
+        .join(" ||  ");
 
     let newScript = script.replace("NUMBER", number);
     newScript = newScript.replace("LOC", location);
-    newScript = newScript.replace("ERR", errorMessage);
+    newScript = newScript.replace("ERR", formattedErrors);
 
-    copyingText(newScript)
+    copyingText(newScript);
 }
 
 export function externalDepartments(script, id) {
@@ -146,16 +174,29 @@ export function codes(script, id) {
     }
 
     globalCodeAnnoucement = codeAnn;
+    globalCodeClearBackup = codeAnn;
 }
 
 export function codeRemarks(script) {
-    if (globalCodeCall) {
-        let newScript = script.replace("CDANN", globalCodeAnnoucement);
-        copyingText(newScript);
-        globalCodeCall = false;
+    if (!globalCodeCall) {
+        globalCodeAnnoucement = prompt("Announcement: ")
     }
+    let newScript = script.replace("CDANN", globalCodeAnnoucement);
+    copyingText(newScript);
 
-    else alert("Call a Code First");
+    globalCodeCall = false;
+    globalCodeClearBackup = globalCodeAnnoucement;
+    globalCodeAnnoucement = "";
+}
+
+export function clearCodeRemarks(script) {
+    let extension = prompt("Ext: ");
+
+    let newScript = script.replace("CONTACT", extension);
+    newScript = newScript.replace("CDANN", globalCodeClearBackup);
+
+    copyingText(newScript);
+    globalCodeClearBackup = "";
 }
 
 export function geRemarks(script) {

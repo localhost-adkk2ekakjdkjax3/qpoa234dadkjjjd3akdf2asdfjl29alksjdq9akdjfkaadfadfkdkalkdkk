@@ -11,6 +11,7 @@ import {
   codeRemarks,
   geRemarks,
   hrhItRemarks,
+  clearCodeRemarks,
   asPerRemarks
 } from "./functions/promptFunctions.js";
 import allScripts from "./functions/allScripts.js";
@@ -58,6 +59,9 @@ document.querySelectorAll('.item').forEach(item => {
     }
     else if (item.id === "remarksAsPer") {
       asPerRemarks();
+    }
+    else if (item.id=="remarksClearCode") {
+      clearCodeRemarks(allScripts[item.id]);
     }
     else {
       copyingText(allScripts[item.id]);
