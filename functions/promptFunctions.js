@@ -63,14 +63,11 @@ export function agv(script) {
     const errorCodeMap = {
         2368: "Rear Bumper",
         2314: "Front Bumper",
-        2450: "Left Safety Scanner",
-        2481: "Right Safety Scanner",
-        2601: "Emergency Stop Pressed",
-        2700: "Obstacle Detected",
-        2805: "Low Battery",
-        2902: "Drive Fault",
-        3001: "Communication Fault",
-        3104: "Load Detect Fault"
+        2019: "Load Detect Fault",
+        2050: "Cart not in position to raise lift",
+        1: "Safety system modules not okay",
+        2: "Encoder crosscheck failure",
+        3: "Speed outside safety tolerance",
     };
 
     // Convert input into array (handles multiple spaces)
