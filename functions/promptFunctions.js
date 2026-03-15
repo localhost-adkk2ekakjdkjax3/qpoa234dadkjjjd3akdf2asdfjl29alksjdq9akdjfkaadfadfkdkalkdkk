@@ -65,9 +65,13 @@ export function agv(script) {
         "2314": "Front Bumper",
         "2019": "Load Detect Fault",
         "2050": "Cart not in position to raise lift",
-        "1": "Safety system modules not okay",
-        "2": "Encoder crosscheck failure",
-        "3": "Speed outside safety tolerance"
+        "1884": "No Auto-Mode Guidesafe",
+        "5499": "Safety system modules not okay",
+        "5509": "Encoder crosscheck failure",
+        "5510": "Speed outside safety tolerance",
+        "4028": "Navigation Module: Movement too far",
+        "1272": "Nav - Large position uncertainty",
+        "4024": "Navigation module: Reporting Errors",
     };
 
     // Convert input safely
