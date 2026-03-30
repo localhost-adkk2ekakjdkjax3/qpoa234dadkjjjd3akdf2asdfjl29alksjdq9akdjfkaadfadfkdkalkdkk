@@ -72,6 +72,8 @@ export function agv(script) {
         "4028": "Navigation Module: Movement too far",
         "1272": "Nav - Large position uncertainty",
         "4024": "Navigation module: Reporting Errors",
+        "1394": "XML Message IDs are not synchronized; Check out of service and back into service", 
+        "0": "RF Communication Error",
     };
 
     // Convert input safely
