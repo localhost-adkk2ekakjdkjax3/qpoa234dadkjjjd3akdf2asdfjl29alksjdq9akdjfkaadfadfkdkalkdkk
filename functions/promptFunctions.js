@@ -73,6 +73,7 @@ export function agv(script) {
         "1272": "Nav - Large position uncertainty",
         "4024": "Navigation module: Reporting Errors",
     };
+    console.log(Object.keys(errorCodeMap).map(k => `[${k}]`));
 
     // Convert input safely
     const errorCodes = errorInput
@@ -80,12 +81,12 @@ export function agv(script) {
         : [];
 
     const formattedErrors = errorCodes
-        .map(code => {
-            const cleanCode = code.trim(); // extra safety
-            const description = errorCodeMap[cleanCode] || "Unknown Error";
-            return `${cleanCode} - ${description}`;
-        })
-        .join(" ||  ");
+    .map(code => {
+        const cleanCode = code.replace(/[\[\]]/g, '').trim(); // remove [ ]
+        const description = errorCodeMap[cleanCode] || "Unknown Error";
+        return `${cleanCode} - ${description}`;
+    })
+    .join(" ||  ");
 
     let newScript = script.replace("NUMBER", number);
     newScript = newScript.replace("LOC", location);
