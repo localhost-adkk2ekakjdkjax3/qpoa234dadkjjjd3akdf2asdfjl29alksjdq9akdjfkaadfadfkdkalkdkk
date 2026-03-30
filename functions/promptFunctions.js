@@ -73,7 +73,6 @@ export function agv(script) {
         "1272": "Nav - Large position uncertainty",
         "4024": "Navigation module: Reporting Errors",
     };
-    console.log(Object.keys(errorCodeMap).map(k => `[${k}]`));
 
     // Convert input safely
     const errorCodes = errorInput
